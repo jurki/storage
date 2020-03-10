@@ -39,8 +39,6 @@ final class StockAddTest extends TestCase
         Storage::addStock(self::$volkswagenPolo, 2);
     
         $getProducts = Storage::removeStock("vw1", 12);
-
-        print("\nKészlet mennyiség teszt 1\n");
         $this->assertSame(Storage::getTotalQuantity(), 11 + 2 + 16 + 2 - 12);
     }
 
@@ -51,7 +49,7 @@ final class StockAddTest extends TestCase
         Storage::addStock(self::$sentinelS4, 2);
         Storage::addStock(self::$audiS4, 16);
         Storage::addStock(self::$volkswagenPolo, 2);
-        echo "\n" . Storage::print() . "\n";
+        Storage::print();
         $this->assertTrue(true);
     }
 
@@ -68,7 +66,6 @@ final class StockAddTest extends TestCase
         Storage::addStock(self::$volkswagenPolo, 10);
         Storage::addStock(self::$volkswagenPolo, 10);
         $getProducts = Storage::removeStock("vw1", 12);
-        print("\nKészlet mennyiség teszt 2\n");
         $this->assertSame(Storage::getTotalQuantity(), 10 + 10 - 12);
     }
 }
