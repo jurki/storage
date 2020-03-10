@@ -1,0 +1,9 @@
+{
+    "name": "jurki/storage-test",
+    "description": "Házi feladat állásinterjúra",
+    "autoload": {
+        "psr-4": {
+            "Storage\\": "src/"
+        }
+    }
+}
