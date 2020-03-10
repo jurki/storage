@@ -26,12 +26,12 @@ try {
     Storage::addStock($audiS4, 16);
     Storage::addStock($volkswagenPolo, 2);
 
-    Storage::print();
+    echo Storage::print();
 
-    echo " ------------------------------- \n";
+    echo "-------------------------------<br>";
 
-    $getProducts = Storage::getStock("vw1", 12);
-    Storage::print();
+    $getProducts = Storage::removeStock("vw1", 12);
+    echo Storage::print();
 } catch (\Exception $e) {
     echo "Jaj, ban van: " . $e->getMessage();
 }

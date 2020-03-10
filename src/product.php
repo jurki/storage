@@ -4,7 +4,8 @@ namespace Storage;
 
 abstract class Product
 {
-    public function __construct ($name, $brand, $sku, $price) {
+    public function __construct($name, $brand, $sku, $price)
+    {
         $this->name = $name;
         $this->sku = $sku;
         $this->brand = $brand;
@@ -16,11 +17,13 @@ abstract class Product
     private $name;
     private $price;
 
-    public function getSku () {
+    public function getSku()
+    {
         return $this->sku;
     }
 
-    public function __toString () {
+    public function __toString()
+    {
         return $this->brand . ' ' . $this->name . ', #' . $this->sku . ', ' . $this->price . ' Ft'; 
     }
 }

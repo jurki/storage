@@ -6,7 +6,8 @@ class Storage
 {
     public static $storages = [];
 
-    public function __construct ($name, $address, $capacity) {
+    public function __construct($name, $address, $capacity)
+    {
         $this->name = $name;
         $this->address = $address;
         $this->capacity = $capacity;
@@ -18,7 +19,8 @@ class Storage
     protected $capacity = '';
     protected $stock = [];
 
-    public static function addStock ($product, $quantity) {
+    public static function addStock($product, $quantity)
+    {
         $finish = false;
         foreach (self::$storages as $storage) {
             if (!$finish) {
@@ -37,7 +39,8 @@ class Storage
         }
     }
 
-    public function getRemainingCapacity () {
+    public function getRemainingCapacity()
+    {
         $quantity = 0;
         foreach ($this->stock as $stock) {
             $quantity += $stock->getQuantity();
@@ -48,7 +51,8 @@ class Storage
         return $this->capacity - $quantity;
     }
 
-    public function getStock ($sku, $quantity) {
+    public function removeStock($sku, $quantity)
+    {
         $stockOut = null;
         foreach (self::$storages as &$storage) {
             foreach ($storage->stock as $i => &$stock) {
@@ -76,9 +80,24 @@ class Storage
         throw new \Exception("Nem tudtam kiadni " . $quantity . " darab terméket");
     }
 
-    public function __toString () {
-        $break = "\n";
-        $break = '<br>';
+    public static function getTotalQuantity()
+    {
+        $quantity = 0;
+        foreach (self::$storages as &$storage) {
+            foreach ($storage->stock as $i => &$stock) {
+                $quantity += $stock->getQuantity();
+            }
+        }
+        return $quantity;
+    }
+
+    public function __toString()
+    {
+        if (php_sapi_name() == "cli") {
+            $break = "\n";
+        } else {
+            $break = '<br>';
+        }
         $r = "Raktár: " . $this->name . $break;
         $r .= "Cím: " . $this->address . $break;
         $r .= "Szabad helyek: " . $this->getRemainingCapacity() . "/" . $this->capacity . $break;
@@ -94,9 +113,24 @@ class Storage
         return $r;
     }
 
-    public static function print () {
+    public static function print()
+    {
+        $r = '';
         foreach (self::$storages as $storage) {
-            echo $storage;
+            $r .= $storage;
         }
+        return $r;
+    }
+
+    public static function emptyAll()
+    {
+        foreach (self::$storages as $storage) {
+            $storage->empty();
+        }
+    }
+
+    public function empty()
+    {
+        $this->stock = [];
     }
 }
